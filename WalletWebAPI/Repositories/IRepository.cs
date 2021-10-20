@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace WalletWebAPI.Repositories {
 	public interface IRepository<T> where T : class {
-		IEnumerable<T> GetAll();
+		IQueryable<T> GetAll();
 		T Get(int id);
-		IEnumerable<T> Find(Func<T, Boolean> predicate);
+		IQueryable<T> Find(Func<T, bool> predicate);
 		void Create(T item);
 		void Update(T item);
 		void Delete(int id);

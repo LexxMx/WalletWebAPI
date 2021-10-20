@@ -23,7 +23,7 @@ namespace WalletWebAPI {
 				services.AddScoped<IRepository<TransactionModel>, TransactionFileRepository>();
 			} else {
 				var connection = Configuration.GetConnectionString("DefaultConnection");
-				services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection));
+				services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection).EnableSensitiveDataLogging());
 				services.AddScoped<IRepository<TransactionModel>, TransactionDBRepository>();
 			}
 			

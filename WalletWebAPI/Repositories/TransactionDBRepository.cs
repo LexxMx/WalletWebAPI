@@ -5,23 +5,33 @@ using System.Linq;
 using WalletWebAPI.Models;
 
 namespace WalletWebAPI.Repositories {
-	public class TransactionDBRepository : IRepository<TransactionModel> {
+	public class TransactionDBRepository : ITransactionRepository {
 		private ApplicationContext appDBContext;
 
 		public TransactionDBRepository(ApplicationContext dbContext) {
 			appDBContext = dbContext;
 		}
 
-		public IEnumerable<TransactionModel> GetAll() {
-			return appDBContext.Transactions.Select(x => MapTransactionModel(x));
+		public IQueryable<TransactionModel> GetAll() {
+			return appDBContext.Transactions.Select(x => new TransactionModel {
+				Id = x.Id,
+				Amount = x.Amount,
+				DayTransaction = x.DayTransaction,
+				Diraction = (TransactionDirectionEnum)x.Diraction
+			});
 		}
 
 		public TransactionModel Get(int id) {
-			return appDBContext.Transactions.Select(x => MapTransactionModel(x)).FirstOrDefault(x => x.Id == id);
+			return appDBContext.Transactions.Select(x => new TransactionModel {
+				Id = x.Id,
+				Amount = x.Amount,
+				DayTransaction = x.DayTransaction,
+				Diraction = (TransactionDirectionEnum)x.Diraction
+			}).Where(x => x.Id == id)?.FirstOrDefault();
 		}
 
-		public IEnumerable<TransactionModel> Find(Func<TransactionModel, bool> predicate) {
-			return appDBContext.Transactions.Select(x => MapTransactionModel(x)).Where(predicate);
+		public IQueryable<TransactionModel> Find(Func<TransactionModel, bool> predicate) {
+			return appDBContext.Transactions.Where(x => predicate(MapTransactionModel(x))).Select(x => MapTransactionModel(x));
 		}
 
 		public void Create(TransactionModel item) {
@@ -40,6 +50,11 @@ namespace WalletWebAPI.Repositories {
 				appDBContext.Transactions.Remove(transaction);
 				appDBContext.SaveChanges();
 			}
+		}
+
+		public decimal GetSumTransaction()
+		{
+			return appDBContext.Transactions.Sum(x => x.Amount);
 		}
 
 		public static TransactionModel MapTransactionModel(Transaction source) {

@@ -6,7 +6,7 @@ using WalletWebAPI.Models;
 using System.Text.Json;
 
 namespace WalletWebAPI.Repositories {
-	public class TransactionFileRepository : IRepository<TransactionModel> {
+	public class TransactionFileRepository : ITransactionRepository {
 
 		private List<TransactionModel> transactions;
 		private string transactionsFilePath = "transactions.json";
@@ -21,16 +21,16 @@ namespace WalletWebAPI.Repositories {
 			}
 		}
 
-		public IEnumerable<TransactionModel> GetAll() {
-			return transactions;
+		public IQueryable<TransactionModel> GetAll() {
+			return transactions.AsQueryable();
 		}
 
 		public TransactionModel Get(int id) {
 			return transactions.FirstOrDefault(x => x.Id == id);
 		}
 
-		public IEnumerable<TransactionModel> Find(Func<TransactionModel, bool> predicate) {
-			return transactions.Where(predicate);
+		public IQueryable<TransactionModel> Find(Func<TransactionModel, bool> predicate) {
+			return transactions.Where(predicate).AsQueryable();
 		}
 
 		public void Create(TransactionModel item) {
@@ -58,6 +58,11 @@ namespace WalletWebAPI.Repositories {
 				transactions.Remove(transaction);
 				SaveChanges();
 			}
+		}
+
+		public decimal GetSumTransaction()
+		{
+			return transactions.Sum(x => x.Amount);
 		}
 
 		private void SaveChanges() {

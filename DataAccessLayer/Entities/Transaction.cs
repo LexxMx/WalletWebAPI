@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataAccessLayer.Etities {
+namespace DataAccessLayer.Entities {
 	public class Transaction {
 		public int Id { get; set; }
 		public decimal Amount { get; set; }
