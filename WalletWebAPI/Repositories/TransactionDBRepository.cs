@@ -1,7 +1,7 @@
-﻿using DataAccessLayer.Etities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DataAccessLayer.Entities;
 using WalletWebAPI.Models;
 
 namespace WalletWebAPI.Repositories {
