@@ -1,4 +1,4 @@
-using DataAccessLayer.Etities;
+using DataAccessLayer.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +20,7 @@ namespace WalletWebAPI {
 			var storageType = Configuration["STORAGE_TYPE"];
 
 			if (storageType == "file") {
-				services.AddScoped<IRepository<TransactionModel>, TransactionFileRepository>();
+				services.AddScoped<ITransactionRepository, TransactionFileRepository>();
 			} else {
 				var connection = Configuration.GetConnectionString("DefaultConnection");
 				services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connection).EnableSensitiveDataLogging());
