@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer.Entities;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WalletWebAPI.Models;
 using WalletWebAPI.Repositories;
 
 namespace WalletWebAPI.Controllers {
@@ -17,7 +17,7 @@ namespace WalletWebAPI.Controllers {
 
 		// GET: api/<TransactionController>
 		[HttpGet]
-		public IEnumerable<TransactionModel> Get() {
+		public IEnumerable<Transaction> Get() {
 			return _repository.GetAll();
 		}
 
@@ -30,19 +30,19 @@ namespace WalletWebAPI.Controllers {
 
 		// GET api/<TransactionController>/from/to
 		[HttpGet("{id}")]
-		public TransactionModel GetOne(int id) {
+		public Transaction GetOne(int id) {
 			return _repository.Get(id);
 		}
 
 		// GET api/<TransactionController>/from/to
 		[HttpGet("{from}/{to}")]
-		public IEnumerable<TransactionModel> Get(DateTime from, DateTime to) {
+		public IEnumerable<Transaction> Get(DateTime from, DateTime to) {
 			return _repository.Find(x => x.DayTransaction >= from && x.DayTransaction <= to);
 		}
 
 		// POST api/<TransactionController>/value
 		[HttpPost]
-		public void Post([FromBody] TransactionModel value) {
+		public void Post([FromBody] Transaction value) {
 			if (value == null) {
 				return;
 			}
@@ -51,7 +51,7 @@ namespace WalletWebAPI.Controllers {
 
 		// PUT api/<TransactionController>/value
 		[HttpPut]
-		public void Put([FromBody] TransactionModel value) {
+		public void Put([FromBody] Transaction value) {
 			if (value == null) {
 				return;
 			}

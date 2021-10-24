@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WalletWebAPI.Models;
+﻿using DataAccessLayer.Entities;
 
 namespace WalletWebAPI.Repositories {
-	public interface ITransactionRepository : IRepository<TransactionModel>
+	public interface ITransactionRepository : IRepository<Transaction>
 	{
 		decimal GetSumTransaction();
 	}

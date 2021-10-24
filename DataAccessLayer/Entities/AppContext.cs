@@ -5,7 +5,6 @@ namespace DataAccessLayer.Entities {
 		public DbSet<Transaction> Transactions { get; set; }
 
 		public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) {
-			//Database.EnsureCreated();
 		}
 	}
 }

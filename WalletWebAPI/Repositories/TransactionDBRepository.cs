@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using DataAccessLayer.Entities;
-using WalletWebAPI.Models;
 
 namespace WalletWebAPI.Repositories {
 	public class TransactionDBRepository : ITransactionRepository {
@@ -12,35 +12,25 @@ namespace WalletWebAPI.Repositories {
 			appDBContext = dbContext;
 		}
 
-		public IQueryable<TransactionModel> GetAll() {
-			return appDBContext.Transactions.Select(x => new TransactionModel {
-				Id = x.Id,
-				Amount = x.Amount,
-				DayTransaction = x.DayTransaction,
-				Diraction = (TransactionDirectionEnum)x.Diraction
-			});
+		public IEnumerable<Transaction> GetAll() {
+			return appDBContext.Transactions.ToList();
 		}
 
-		public TransactionModel Get(int id) {
-			return appDBContext.Transactions.Select(x => new TransactionModel {
-				Id = x.Id,
-				Amount = x.Amount,
-				DayTransaction = x.DayTransaction,
-				Diraction = (TransactionDirectionEnum)x.Diraction
-			}).Where(x => x.Id == id)?.FirstOrDefault();
+		public Transaction Get(int id) {
+			return appDBContext.Transactions.Where(x => x.Id == id)?.FirstOrDefault();
 		}
 
-		public IQueryable<TransactionModel> Find(Func<TransactionModel, bool> predicate) {
-			return appDBContext.Transactions.Where(x => predicate(MapTransactionModel(x))).Select(x => MapTransactionModel(x));
+		public IEnumerable<Transaction> Find(Expression<Func<Transaction, bool>> predicate) {
+			return (appDBContext.Transactions.Select(x => x).Where(predicate)).ToList();
 		}
 
-		public void Create(TransactionModel item) {
-			appDBContext.Transactions.Add(MapTransaction(item));
+		public void Create(Transaction item) {
+			appDBContext.Transactions.Add(item);
 			appDBContext.SaveChanges();
 		}
 
-		public void Update(TransactionModel item) {
-			appDBContext.Transactions.Update(MapTransaction(item));
+		public void Update(Transaction item) {
+			appDBContext.Transactions.Update(item);
 			appDBContext.SaveChanges();
 		}
 
@@ -55,24 +45,6 @@ namespace WalletWebAPI.Repositories {
 		public decimal GetSumTransaction()
 		{
 			return appDBContext.Transactions.Sum(x => x.Amount);
-		}
-
-		public static TransactionModel MapTransactionModel(Transaction source) {
-			return new TransactionModel {
-				Id = source.Id,
-				Amount = source.Amount,
-				DayTransaction = source.DayTransaction,
-				Diraction = (TransactionDirectionEnum)source.Diraction
-			};
-		}
-
-		public static Transaction MapTransaction(TransactionModel source) {
-			return new Transaction {
-				Id = source.Id,
-				Amount = source.Amount,
-				DayTransaction = source.DayTransaction,
-				Diraction = (TransactionDirection)source.Diraction
-			};
 		}
 	}
 }
