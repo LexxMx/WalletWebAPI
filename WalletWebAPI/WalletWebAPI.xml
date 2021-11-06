@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WalletWebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:WalletWebAPI.Controllers.TransactionCategoryController.Get">
+            <summary>
+            Gets the list of all Transaction Category.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionCategoryController.Get(System.Int32)">
+            <summary>
+            Gets a Transactions Category.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionCategoryController.Post(DataAccessLayer.Entities.TransactionCategory)">
+            <summary>
+            Creates a Transaction Category.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionCategoryController.Put(DataAccessLayer.Entities.TransactionCategory)">
+            <summary>
+            Updates a Transaction Category.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionCategoryController.Delete(System.Int32)">
+            <summary>
+            Delete a Transaction Category.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionController.Get">
+            <summary>
+            Gets the list of all Transaction.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionController.Balance">
+            <summary>
+            Gets Balance of Transactions.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionController.GetOne(System.Int32)">
+            <summary>
+            Gets a Transactions.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionController.Get(System.DateTime,System.DateTime)">
+            <summary>
+            Gets the list of Transaction by period.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionController.Post(DataAccessLayer.Entities.Transaction)">
+            <summary>
+            Creates a Transaction.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionController.Put(DataAccessLayer.Entities.Transaction)">
+            <summary>
+            Updates a Transaction.
+            </summary>
+        </member>
+        <member name="M:WalletWebAPI.Controllers.TransactionController.Delete(System.Int32)">
+            <summary>
+            Delete a Transaction.
+            </summary>
+        </member>
+    </members>
+</doc>
